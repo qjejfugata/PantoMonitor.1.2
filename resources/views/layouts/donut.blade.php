@@ -6,9 +6,13 @@
 <br>
 </div>
 
+
 <script>
+
+
+
 var xValues = ["Good", "Bad"];
-var yValues = [55, 23];
+var yValues = ['{{sizeof($GoodCount)}} ', '{{sizeof($badCount)}} '];
 var barColors = [
   "#b91d47",
   "#00aba9"

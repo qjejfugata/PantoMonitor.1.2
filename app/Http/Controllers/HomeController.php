@@ -44,7 +44,13 @@ class HomeController extends Controller
       $database = app('firebase.database');
       
       
-      $reference= $database->getReference('Entries')->getValue();
+      $reference= $database->getReference('trylang')->getvalue();
+      $references= $database->getReference('trylang');
+      
+
+       $tryulit =$database->getReference('trylang')->orderByChild('Assesment')->equalTo('Bad')->getvalue();
+       $tryulits =$database->getReference('trylang')->orderByChild('Assesment')->equalTo('Good')->getvalue();
+      
       $Assesment ='Good';
       $Date = '03/24/2023';
       $img = "newImga01";
@@ -58,7 +64,7 @@ $post = [
 ];
 
 
-      //$post = $reference->push($post);
+      //$post = $references->push($post);
       // END FETCH DB
 
       function countDB($arr)
@@ -75,9 +81,10 @@ $post = [
     }
 
    //$trylang = countDB($reference);
-    //$trylang = $reference;
+    $totalCount = $reference;
       $recentimg = 'newImage36';
-
+    $badCount = $tryulit;
+    $GoodCount = $tryulits;
 
 
       // IMAGE FUNCTION
@@ -95,7 +102,7 @@ $post = [
         $uid = Session::get('uid');
         $user = app('firebase.auth')->getUser($uid);
       
-        return view('home',compact('image'));
+        return view('home',compact('image','totalCount','badCount','GoodCount'));
       } catch (\Exception $e) {
         return $e;
       }

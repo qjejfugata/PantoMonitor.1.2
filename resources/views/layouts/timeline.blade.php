@@ -1,65 +1,53 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 
 <canvas id="myChart" style="width:100%;"></canvas>
 
-<script>
-var xValues = ["Jan", "Feb", "Mar", "Apr", "May","June","July","Aug"];
-var yValues = [55, 49, 44, 24, 15,43,54,7,4];
-var barColors = ["red", "green","blue","orange","brown","green","Yellow"];
+<script >
 
-var xValuess = ["Jan", "Feb", "Mar", "Apr", "May","June","July","Aug"];
-var yValuess = [35, 9, 24, 2, 5,3,4,72,42];
-var barColors = ["red", "green","orange","blue","green","brown","red"];
-
-
-new Chart("myChart", {
- 
-type: 'bar',
-  data: 
-
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: Utils.numbers(NUMBER_CFG),
-      backgroundColor: Utils.CHART_COLORS.red,
-      stack: 'Stack 0',
-    },
-    {
-      label: 'Dataset 2',
-      data: Utils.numbers(NUMBER_CFG),
-      backgroundColor: Utils.CHART_COLORS.blue,
-      stack: 'Stack 0',
-    },
-  
-  ]
+    var labels = ["Jan", "Feb", "Mar", "Apr", "May","June","July","Aug","Sept","Oct","Nov","Dec"];
+    var users =   [{{$goodcounterjan}}, {{$goodcounterfeb}},{{$goodcountermar}},{{$goodcounterapr}}, {{$goodcountermay}},{{$goodcounterjune}}, {{$goodcounterjuly}},{{$goodcounteraug}}, {{$goodcountersep}}, {{$goodcounteroct}},{{$goodcounternov}},{{$goodcounterdec}}];
+    var userss =   [{{$badcounterjan}},{{$badcounterjan}}, {{$badcountermar}},{{$badcounterapr}}, {{$badcountermay}},{{$badcounterjune}}, {{$badcounterjuly}}, {{$badcounteraug}},{{$badcountersep}}, {{$badcounteroct}},{{$badcounternov}},{{$badcounterdec}}];
+    
   
   
-  
-  ,
-  options: {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Chart.js Bar Chart - Stacked'
-      },
-    },
-    responsive: true,
-    interaction: {
-      intersect: false,
-    },
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true
-      }
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Good',
+            backgroundColor: 'rgb(128, 255, 132)',
+            borderColor: 'rgb(128, 255, 0)',
+            data: users,
+
+        },
+        {
+            label: 'Bad',
+            backgroundColor: 'rgb(255, 49, 132)',
+            borderColor: 'rgb(235, 49, 32)',
+            data: userss,
+        }
+
+
+
+        ]
+    };  
+    
+    const config = {  
+        type: 'bar',  
+        data: data, 
+        options: {  
+        scales: { 
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        }
     }
-  }
-});
-
-
-
-
-
+    };
+  
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
 </script>

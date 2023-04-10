@@ -27,6 +27,9 @@
 <script src="dist/js/adminlte.js"></script>
 <script src="dist/js/pages/dashboard.js"></script>
 
+<!-- Chartjs -->
+<script src="plugins/chart.js/Chart.js"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

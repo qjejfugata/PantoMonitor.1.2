@@ -63,8 +63,10 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-              <h3>{{sizeof($GoodCount)}}</h3>
+         
 
+              <h3>{{sizeof($GoodCount)}}</h3>
+    
                 <p>Status Assesment: Good</p>
               </div>
               <div class="icon">
@@ -189,11 +191,19 @@
             <div class="card bg-gradient-primary">
               <div class="card-header border-0">
                 <h3 class="card-title">
-                <i class="fa fa-solid fa-image"></i>
+                <i class="fa fa-solid fa-image"></i>  
                   Recent Photo                                              
                 </h3>
-                <h5 class="text-right"> 03/29/2023</h5>
+
+
+
+              @foreach ($recentimgs as $key =>$item)
+                <h5 class="text-right">  {{$item['Date']}}   </h5>
+              @endforeach
+              
+              
               </div>
+              
 
               <div class="card-body">
                 <img src="{{$image}}" class="img-fluid" alt="Responsive image">

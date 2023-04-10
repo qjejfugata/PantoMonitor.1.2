@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 <div>
     <br>    
 <canvas id="Donut" style="width:100%;"></canvas>

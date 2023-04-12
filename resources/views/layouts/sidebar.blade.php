@@ -1,5 +1,5 @@
  <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-primary elevation-4">
+ <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-teal">
     <!-- Brand Logo -->
     <a href="home" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -8,7 +8,7 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar bg-olive">
     
 
       <!-- Sidebar Menu -->

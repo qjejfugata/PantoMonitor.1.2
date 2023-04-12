@@ -1,5 +1,4 @@
-
-
+<div>
 <canvas id="myChart" style="width:100%;"></canvas>
 
 <script >
@@ -14,14 +13,14 @@
         labels: labels,
         datasets: [{
             label: 'Good',
-            backgroundColor: 'rgb(128, 255, 132)',
+            backgroundColor: 'rgb(92,177,255)',
             borderColor: 'rgb(128, 255, 0)',
             data: users,
 
         },
         {
             label: 'Bad',
-            backgroundColor: 'rgb(255, 49, 132)',
+            backgroundColor: 'rgb(67,126,247)',
             borderColor: 'rgb(235, 49, 32)',
             data: userss,
         }
@@ -51,3 +50,4 @@
         config
     );
 </script>
+</div>

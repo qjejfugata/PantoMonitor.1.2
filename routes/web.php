@@ -17,9 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(); 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home')->middleware('user','fireauth');
+
+
+Route::get('/power-on', 'App\Http\Controllers\HomeController@poweron')->name('power-on');
+
+Route::get('/predict-on', 'App\Http\Controllers\HomeController@predicton')->name('predict-on');
+
+Route::get('/record-on', 'App\Http\Controllers\HomeController@recordon')->name('record-on');
 
 
 Route::get('/email/verify', [App\Http\Controllers\Auth\ResetController::class, 'verify_email'])->name('verify')->middleware('fireauth');

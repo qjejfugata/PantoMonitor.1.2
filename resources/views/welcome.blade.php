@@ -13,12 +13,12 @@
         <style>
             body {
                 font-family: 'Nunito';
-                background-image: url("/dist/img/photo1.png");
+                background-image: url("/dist/img/photo5.jpg");
                 
             }
         </style>
     </head>
-    <body class="antialiased">
+    <body >
     
 
     </div>

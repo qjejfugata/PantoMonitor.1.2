@@ -1,11 +1,11 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light elevation-1">
     <!-- Left navbar links -->
     <ul class="navbar-nav mr-auto ">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     
-      <h4 class="float-right" >Welcome Back,USER</h4>
+      <h4 class="float-right" >Welcome Back, {{$userName}}</h4>
       
     </ul>
 
@@ -20,16 +20,27 @@
 
 
 
-          <a href="home/profile" class="d-block">Placeholder Name</a>
+          <a href="home/profile" class="d-block">{{$userName}}</a>
         </div>
       </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="#" role="button">
+        <a class="nav-link" href="{{route('power-on') }}" method ="post" role="button">
         <i class=" fas fa-sharp fa-lightbulb "></i>
         </a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('predict-on') }}" method ="post" role="button">
+        <i class="fa fa-regular fa-infinity"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('record-on') }}" method ="post" role="button">
+        <i class="fa  fa-solid fa-play"></i>
+        </a>
+      </li>
 
     <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">

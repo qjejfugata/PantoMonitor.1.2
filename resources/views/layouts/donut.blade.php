@@ -1,8 +1,7 @@
 
-<div>
-    <br>    
+<div>  
 <canvas id="Donut" style="width:100%;"></canvas>
-
+<br>
 <br>
 </div>
 
@@ -14,8 +13,8 @@
 var xValues = ["Good", "Bad"];
 var yValues = ['{{sizeof($GoodCount)}} ', '{{sizeof($badCount)}} '];
 var barColors = [
-  "#b91d47",
-  "#00aba9"
+  "#5cb1ff",
+  "#437ef7"
   
 ];
 
@@ -37,4 +36,3 @@ new Chart("Donut", {
 });
 </script>
 
-</body>

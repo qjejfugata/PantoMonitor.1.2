@@ -45,12 +45,13 @@ class HomeController extends Controller
       
       $reference= $database->getReference('New_Entries')->getvalue();
       $references= $database->getReference('New_Entries');
+      $powercheck= $database->getReference('Power')->getvalue();
       
 //GOOD & BAD
        $tryulit =$database->getReference('New_Entries')->orderByChild('Assessment')->equalTo('Bad')->getvalue();
        $tryulits =$database->getReference('New_Entries')->orderByChild('Assessment')->equalTo('Good')->getvalue();
       
-       $tryulitss =$database->getReference('New_Entries')->orderByChild('Date')->limitToFirst(1)->getvalue();
+       $tryulitss =$database->getReference('New_Entries')->orderByChild('Date')->limitToLast(1)->getvalue();
   
 
   // JANK TIMELINE FUNCTIONS   
@@ -369,30 +370,19 @@ if (strpos($item['Date'] ,'February') !== false) {
     
     
      // END FETCH DB
-
     
     
     
     
     
-    
-      $totalCount = $reference;
-     
+     $totalCount = $reference;
+     $checkpower = $powercheck;
     $badCount = $tryulit;
     $GoodCount = $tryulits;
 
-   // $arraytry = json_decode($tryulitss, true);
-    //$lastElement = array_pop($arraytry);
-
-
-    //if (!empty($tryulitss)) {
-      
-      //$lastElement = array_pop($arraytry);
-     // $recentimg = $lastElement['Img'];
-      
- // } else {
+ 
   $recentimgs = $tryulitss;
-  // $recentimg = 'newImg0';
+ 
   
   foreach($recentimgs as $item){
     $recentimg = $item['Img'];
@@ -402,7 +392,7 @@ if (strpos($item['Date'] ,'February') !== false) {
 
       // IMAGE FUNCTION
         $imageReference = app('firebase.storage')->getBucket()->object("images/{$recentimg}.jpg");
-        $expiresAt = new \DateTime('tomorrow');
+        $expiresAt = new \DateTime('tomorrow'); 
         if ($imageReference->exists()) {
           $image = $imageReference->signedUrl($expiresAt);
         } else 
@@ -414,15 +404,21 @@ if (strpos($item['Date'] ,'February') !== false) {
       try {
         $uid = Session::get('uid');
         $user = app('firebase.auth')->getUser($uid);
+        
+      if ($user) {
+      $userName = $user->displayName;
+      } else {
+      $userName = 'Guest';
+      }
       
-        return view('home',compact('image','totalCount','badCount','GoodCount',
+        return view('home',compact('userName','image','totalCount','badCount','GoodCount',
         'recentimgs','badcounterjan','goodcounterjan',
         'badcounterfeb','goodcounterfeb','badcountermar','goodcountermar',
         'badcounterapr','goodcounterapr','badcountermay','goodcountermay',
         'badcounterjune','goodcounterjune','badcounterjuly','goodcounterjuly',
         'badcounteraug','goodcounteraug','badcountersep','goodcountersep',
         'badcounteroct','goodcounteroct','badcounternov','goodcounternov',
-        'badcounterdec','goodcounterdec',));
+        'badcounterdec','goodcounterdec','checkpower'));
       } catch (\Exception $e) {
         return $e;
       }
@@ -431,9 +427,77 @@ if (strpos($item['Date'] ,'February') !== false) {
 
   
 
+   public function poweron()
+    { 
+      $database = app('firebase.database');
+      $updatepowers= $database->getReference('Power');
+      $updatepower= $database->getReference('Power/Status')->getvalue();
+      $trypower = $updatepowers;
+
+      
+      if ($updatepower == '1') {
+        $data = [
+          'Status' => '0',];
+          $updatepowers->update($data);
+          return 'Prototype is off';
+        } else {
+          $data = [
+            'Status' => '1',];
+            $updatepowers->update($data);
+            return 'Prototype is on';
 
     }
+  }
 
+  public function predicton()
+  { 
+    $database = app('firebase.database');
+    $updatepowers= $database->getReference('Prediction');
+    $updatepower= $database->getReference('Prediction/Status')->getvalue();
+    $trypower = $updatepowers;
+
+    
+    if ($updatepower == '1') {
+      $data = [
+        'Status' => '0',];
+        $updatepowers->update($data);
+        return 'prediction is closed';
+      } else {
+        $data = [
+          'Status' => '1',];
+          $updatepowers->update($data);
+          return 'prediction is in session';
+
+  }
+}
+
+public function recordon()
+{ 
+  $database = app('firebase.database');
+  $updatepowers= $database->getReference('StartEndVid');
+  $updatepower= $database->getReference('StartEndVid/Status')->getvalue();
+  $trypower = $updatepowers;
+
+  
+  if ($updatepower == '1') {
+    $data = [
+      'Status' => '0',];
+      $updatepowers->update($data);
+      return 'record is closed';
+    
+    } else {
+      $data = [
+        'Status' => '1',];
+        $updatepowers->update($data);
+        return 'record is in session';
+      
+
+
+}
+}
+
+  
+}
 
     
 

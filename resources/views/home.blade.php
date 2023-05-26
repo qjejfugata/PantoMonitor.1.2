@@ -64,10 +64,11 @@
             <div class="small-box bg-success elevation-4">
               <div class="inner">
          
-
-              <h3>{{sizeof($GoodCount)}}</h3>
+              @foreach ($checkpower as $key =>$item)
+                <h3> {{$item}}   </h3>
+              @endforeach
     
-                <p>Good</p>
+                <p>Power</p>
               </div>
               <div class="icon">
                 <i class="ion ion-checkmark-round"></i>
@@ -88,13 +89,15 @@
               
           
           
-          <h3>{{sizeof($badCount)}} </h3>
+              @foreach ($checkprediction as $key =>$item)
+                <h3> {{$item}}   </h3>
+              @endforeach
 
               
               
            
 
-                <p>Bad</p>
+                <p>Prediction</p>
                 
               </div>
 
@@ -112,7 +115,28 @@
           
           <!-- ./col -->
 
-    
+
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-teal elevation-4">
+              <div class="inner">
+              
+              @foreach ($checkrecord as $key =>$item)
+                <h3> {{$item}}   </h3>
+              @endforeach
+              
+              <p>Recoding</p>
+              </div>
+
+
+              <div class="icon">
+                <i class="ion ion-clock"></i>
+              </div>
+             
+            </div>
+          </div>
+
+
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-secondary elevation-4">
@@ -130,28 +154,6 @@
              
             </div>
           </div>
-
-
-
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-teal elevation-4">
-              <div class="inner">
-              
-              @foreach ($checkpower as $key =>$item)
-                <h3> {{$item}}   </h3>
-              @endforeach
-              <p>Status</p>
-              </div>
-
-
-              <div class="icon">
-                <i class="ion ion-clock"></i>
-              </div>
-             
-            </div>
-          </div>
-
 
 
 
@@ -203,20 +205,68 @@
                   Recent Photo                                              
                 </h3>
 
-              @foreach ($recentimgs as $key =>$item)
+            <!--@foreach ($recentimgs as $key =>$item)
                 <h5 class="text-right">  {{$item['Date']}}   </h5>
               @endforeach
-              
+            -->
               
               </div>
               
 
               <div class="card-body">
-                <img src="{{$image}}" class="img-fluid" alt="Responsive image">
-           
-                
-              </div>
 
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+      @foreach($image as $index => $images)
+
+
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}" @if($index === 0) class="active" @endif  aria-current="true" aria-label="Slide 1"></button>
+    
+    @endforeach
+
+
+  </div>
+  <div class="carousel-inner">
+    
+
+  @foreach($image as $index => $images)
+  <div class="carousel-item @if($index === 0) active @endif">
+      <img src="{{$images}}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+     
+               
+              
+      <!--  <h5>Second slide label</h5> -->
+    </div>
+    </div>
+    @endforeach
+   
+              
+
+    
+    
+
+
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+</div>
+
+
+
+
+
+
+              
 
 
 
@@ -263,6 +313,7 @@
             <!-- Total Assesment END -->
 
       
+            
 
 
 
@@ -288,9 +339,19 @@
 <!-- ./wrapper -->
 
 
-<!-- jQuery -->
+
+
+
+
+
+
+
+
+
 
 </body>
+
+
 
 
 @endsection()

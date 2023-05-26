@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+
+use Illuminate\Support\Facades\Redirect;
+
 use Kreait\Firebase\Auth as FirebaseAuth;
 use Kreait\Firebase\Auth\SignInResult\SignInResult;
 use Kreait\Firebase\Factory;
@@ -15,6 +19,15 @@ use Kreait\Firebase\Database;
 
 
 use Session;
+
+
+
+
+
+
+
+
+
 
 class HomeController extends Controller
 {   
@@ -46,12 +59,14 @@ class HomeController extends Controller
       $reference= $database->getReference('New_Entries')->getvalue();
       $references= $database->getReference('New_Entries');
       $powercheck= $database->getReference('Power')->getvalue();
+      $predictioncheck= $database->getReference('Prediction')->getvalue();
+      $recordcheck= $database->getReference('StartEndVid')->getvalue();
       
 //GOOD & BAD
        $tryulit =$database->getReference('New_Entries')->orderByChild('Assessment')->equalTo('Bad')->getvalue();
        $tryulits =$database->getReference('New_Entries')->orderByChild('Assessment')->equalTo('Good')->getvalue();
       
-       $tryulitss =$database->getReference('New_Entries')->orderByChild('Date')->limitToLast(1)->getvalue();
+       $tryulitss =$database->getReference('New_Entries')->orderByChild('Date')->limitToLast(3)->getvalue();
   
 
   // JANK TIMELINE FUNCTIONS   
@@ -341,7 +356,7 @@ if (strpos($item['Date'] ,'February') !== false) {
 //
 
 
-           //December
+//December
            foreach($tryulits as $item){
             if (strpos($item['Date'] ,'December') !== false) {
               $goodfound = true;
@@ -375,28 +390,41 @@ if (strpos($item['Date'] ,'February') !== false) {
     
     
     
-     $totalCount = $reference;
-     $checkpower = $powercheck;
+    $totalCount = $reference;
+    $checkpower = $powercheck;
+    $checkprediction = $predictioncheck;
+    $checkrecord = $recordcheck;
+
     $badCount = $tryulit;
     $GoodCount = $tryulits;
 
  
   $recentimgs = $tryulitss;
  
+
   
-  foreach($recentimgs as $item){
-    $recentimg = $item['Img'];
-  }
+  //foreach($recentimgs as $item){
+   // $recentimg[] = $item['Img'];
+  //}
   //}
     
 
       // IMAGE FUNCTION
-        $imageReference = app('firebase.storage')->getBucket()->object("images/{$recentimg}.jpg");
-        $expiresAt = new \DateTime('tomorrow'); 
-        if ($imageReference->exists()) {
-          $image = $imageReference->signedUrl($expiresAt);
-        } else 
-          $image = 'https://firebasestorage.googleapis.com/v0/b/pd-last-dance.appspot.com/o/images%2FnewImage22.jpg?alt=media&token=07c89db0-6285-40d2-a4e4-a5d5857bce09';
+      foreach($recentimgs as $item){
+        $imageReference = app('firebase.storage')->getBucket()->object("images/{$item['Img']}.jpg");
+        $image[] = $imageReference->signedUrl(new \DateTime('+1 hour'));
+        
+      }
+
+
+
+        //$imageReference = app('firebase.storage')->getBucket()->object("images/{$recentimg}.jpg");
+        //$expiresAt = new \DateTime('tomorrow'); 
+        //if ($imageReference->exists()) {
+        
+       //$image[] = $imageReference->signedUrl($expiresAt);
+        //} else 
+          //$image = 'https://firebasestorage.googleapis.com/v0/b/pd-last-dance.appspot.com/o/images%2FnewImage22.jpg?alt=media&token=07c89db0-6285-40d2-a4e4-a5d5857bce09';
       // END IMAGE FUNCTION    
      
 
@@ -418,7 +446,7 @@ if (strpos($item['Date'] ,'February') !== false) {
         'badcounterjune','goodcounterjune','badcounterjuly','goodcounterjuly',
         'badcounteraug','goodcounteraug','badcountersep','goodcountersep',
         'badcounteroct','goodcounteroct','badcounternov','goodcounternov',
-        'badcounterdec','goodcounterdec','checkpower'));
+        'badcounterdec','goodcounterdec','checkpower','checkprediction','checkrecord'));
       } catch (\Exception $e) {
         return $e;
       }
@@ -439,12 +467,13 @@ if (strpos($item['Date'] ,'February') !== false) {
         $data = [
           'Status' => '0',];
           $updatepowers->update($data);
-          return 'Prototype is off';
+          return redirect('/home');
+          
         } else {
           $data = [
             'Status' => '1',];
             $updatepowers->update($data);
-            return 'Prototype is on';
+            return redirect('/home');
 
     }
   }
@@ -461,12 +490,12 @@ if (strpos($item['Date'] ,'February') !== false) {
       $data = [
         'Status' => '0',];
         $updatepowers->update($data);
-        return 'prediction is closed';
+        return redirect('/home');
       } else {
         $data = [
           'Status' => '1',];
           $updatepowers->update($data);
-          return 'prediction is in session';
+          return redirect('/home');
 
   }
 }
@@ -483,13 +512,13 @@ public function recordon()
     $data = [
       'Status' => '0',];
       $updatepowers->update($data);
-      return 'record is closed';
+      return redirect('/home');
     
     } else {
       $data = [
         'Status' => '1',];
         $updatepowers->update($data);
-        return 'record is in session';
+        return redirect('/home');
       
 
 

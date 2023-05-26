@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home')->middleware('user','fireauth');
 
 
-Route::get('/power-on', 'App\Http\Controllers\HomeController@poweron')->name('power-on');
+Route::put('/power-on', 'App\Http\Controllers\HomeController@poweron')->name('power-on');
 
 Route::get('/predict-on', 'App\Http\Controllers\HomeController@predicton')->name('predict-on');
 

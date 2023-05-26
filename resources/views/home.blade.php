@@ -229,14 +229,20 @@
   <div class="carousel-inner">
     
 
+
   @foreach($image as $index => $images)
   <div class="carousel-item @if($index === 0) active @endif">
       <img src="{{$images}}" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-     
-               
-              
+      
+      
+      
+           
+      
       <!--  <h5>Second slide label</h5> -->
+    
+               
+            
     </div>
     </div>
     @endforeach

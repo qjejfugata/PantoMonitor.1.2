@@ -401,6 +401,8 @@ if (strpos($item['Date'] ,'February') !== false) {
  
   $recentimgs = $tryulitss;
  
+  
+
 
   
   //foreach($recentimgs as $item){
@@ -416,7 +418,7 @@ if (strpos($item['Date'] ,'February') !== false) {
         
       }
 
-
+      
 
         //$imageReference = app('firebase.storage')->getBucket()->object("images/{$recentimg}.jpg");
         //$expiresAt = new \DateTime('tomorrow'); 

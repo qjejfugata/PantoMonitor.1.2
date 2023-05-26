@@ -7,6 +7,9 @@
         <title>Panto-Monitor</title>
 
         <!-- Fonts -->
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 
@@ -14,32 +17,63 @@
             body {
                 font-family: 'Nunito';
                 background-image: url("/dist/img/photo5.jpg");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
                 
             }
         </style>
     </head>
-    <body >
+    <body>
     
+    
+    <div class="d-flex align-items-center justify-content-center"  style="height: 750px;">
+
+
+    <div class="card">
+    <div class="card-header">
+    <div class="d-flex align-items-center justify-content-center">
+    <img src="{{asset('/dist/img/Logo.png') }}" alt="Logo">
+    </<div>
+        
+    </div>
+    </div>
+
+
+    <div class="card-body">
+    <h5 class="text-center">Welcome to PantoMonitor</h5>
+    <p class="card-text">A Dashboard for daily Monitoring of Pantograph Carbon Strips</p>
+
+    <div class="text-center" >
+    @if (Route::has('login'))
+                    @auth
+                        <a  href="{{ url('/home') }}"  class="btn btn-primary" role="button" >Home</a>
+                    @else
+                        <a href="login" class="btn btn-success ">Login</a>
+                        @if (Route::has('register'))
+                            <a class="btn btn-primary" href="{{ route('register') }}" >Register</a>
+                        @endif
+                    @endauth
+                
+            @endif
+
+    </<div>
+    
+</div>
+
 
     </div>
 
 
 
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
 
+
+    
+
+        
+           
+            </div>
             
     </body>
 </html>
